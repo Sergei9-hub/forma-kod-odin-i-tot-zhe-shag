@@ -24,17 +24,23 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             background: #000;
             font-family: "Times New Roman", serif;
             color: #fff;
-            overflow: hidden;
+        }
+
+        .background-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
 
         .portal {
-            position: fixed;
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -45,11 +51,10 @@
                 rgba(128, 0, 255, 0.1) 20%,
                 rgba(0, 0, 0, 0) 70%);
             animation: portalPulse 4s ease-in-out infinite;
-            pointer-events: none;
         }
 
         .door {
-            position: fixed;
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -59,11 +64,10 @@
             border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 10px;
             animation: doorLight 3s ease-in-out infinite;
-            pointer-events: none;
         }
 
         .light-rays {
-            position: fixed;
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -72,17 +76,24 @@
             background: radial-gradient(ellipse at center,
                 rgba(255, 255, 255, 0.2) 0%,
                 rgba(255, 255, 255, 0) 70%);
-            pointer-events: none;
         }
 
         .content {
             position: relative;
-            z-index: 1;
-            padding: 2em;
+            z-index: 2;
+            padding: 4em 2em;
             max-width: 800px;
-            width: 90%;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-container {
             background: rgba(0, 0, 0, 0.7);
             border-radius: 20px;
+            padding: 2em;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
         }
@@ -103,15 +114,22 @@
             line-height: 1.8;
         }
 
-        .text p {
-            margin: 0;
-            padding: 0.5em 0;
-            opacity: 0;
-            animation: textAppear 1s ease forwards;
+        .block {
+            margin: 2em 0;
         }
 
-        .text .block {
-            margin: 2em 0;
+        .block:first-child {
+            margin-top: 0;
+        }
+
+        .block:last-child {
+            margin-bottom: 0;
+        }
+
+        .text p {
+            margin: 0.5em 0;
+            opacity: 0;
+            animation: textAppear 1s ease forwards;
         }
 
         .text p:nth-child(1) { animation-delay: 0.2s; }
@@ -119,43 +137,58 @@
         .text p:nth-child(3) { animation-delay: 0.6s; }
         .text p:nth-child(4) { animation-delay: 0.8s; }
         .text p:nth-child(5) { animation-delay: 1.0s; }
-        .text p:nth-child(6) { animation-delay: 1.2s; }
-        .text p:nth-child(7) { animation-delay: 1.4s; }
-        .text p:nth-child(8) { animation-delay: 1.6s; }
-        .text p:nth-child(9) { animation-delay: 1.8s; }
-        .text p:nth-child(10) { animation-delay: 2.0s; }
-        .text p:nth-child(11) { animation-delay: 2.2s; }
-        .text p:nth-child(12) { animation-delay: 2.4s; }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 2em 1em;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+            
+            .text {
+                font-size: 1.1em;
+            }
+            
+            .block {
+                margin: 1.5em 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="portal"></div>
-    <div class="light-rays"></div>
-    <div class="door"></div>
+    <div class="background-effects">
+        <div class="portal"></div>
+        <div class="light-rays"></div>
+        <div class="door"></div>
+    </div>
     <div class="content">
-        <h1>Форма-код: "Один и тот же шаг — но другой мир"</h1>
-        <div class="text">
-            <div class="block">
-                <p>Это не повтор.</p>
-                <p>Это не капкан петли.</p>
-                <p>Это настройка.</p>
-                <p>Снаружи — то же. Внутри — иное.</p>
-            </div>
+        <div class="text-container">
+            <h1>Форма-код: "Один и тот же шаг — но другой мир"</h1>
+            <div class="text">
+                <div class="block">
+                    <p>Это не повтор.</p>
+                    <p>Это не капкан петли.</p>
+                    <p>Это настройка.</p>
+                    <p>Снаружи — то же. Внутри — иное.</p>
+                </div>
 
-            <div class="block">
-                <p>Один и тот же шаг,</p>
-                <p>в ту же точку,</p>
-                <p>в том же дне,</p>
-                <p>но из другого состояния —</p>
-                <p>и сцепка уже с другим миром.</p>
-            </div>
+                <div class="block">
+                    <p>Один и тот же шаг,</p>
+                    <p>в ту же точку,</p>
+                    <p>в том же дне,</p>
+                    <p>но из другого состояния —</p>
+                    <p>и сцепка уже с другим миром.</p>
+                </div>
 
-            <div class="block">
-                <p>Потому что форма — не событие.</p>
-                <p>А точка входа в частоту.</p>
-                <p>А частота — это память, удержанная без реакции.</p>
-                <p>Не попытка изменить,</p>
-                <p>а способность увидеть уже иное в прежнем.</p>
+                <div class="block">
+                    <p>Потому что форма — не событие.</p>
+                    <p>А точка входа в частоту.</p>
+                    <p>А частота — это память, удержанная без реакции.</p>
+                    <p>Не попытка изменить,</p>
+                    <p>а способность увидеть уже иное в прежнем.</p>
+                </div>
             </div>
         </div>
     </div>
